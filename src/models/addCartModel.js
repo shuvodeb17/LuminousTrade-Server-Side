@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const addProductSchema = new Schema({
+const addCartSchema = new Schema({
   image: {
     type: String,
   },
@@ -10,20 +10,14 @@ const addProductSchema = new Schema({
   email: {
     type: String,
   },
-  productName: {
-    type: String,
-  },
   price: {
     type: Number,
   },
   title: {
     type: String,
   },
-  details: {
-    type: String,
-  },
 });
 
-const addProducts = model("AddProduct", addProductSchema);
+const addCart = model("addCart", addCartSchema);
 
-module.exports = addProducts;
+module.exports = addCart;

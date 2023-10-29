@@ -4,12 +4,13 @@ const { ObjectId } = require('mongodb');
 const imagePost = async (req, res) => {
   try {
     const file = req.file;
-    const { name, email, price, title, details } = req.body;
+    const { name, email, productName, price, title, details } = req.body;
 
     const newProduct = new addProducts({
       image: file.filename,
       name: name,
       email: email,
+      productName: productName,
       price: price,
       title: title,
       details: details,
