@@ -1,7 +1,11 @@
 const multer = require("multer");
 const express = require("express");
 const path = require("path");
-const { imagePost } = require("../controllers/multerImageUploads");
+const {
+  imagePost,
+  getProducts,
+  specificProduct,
+} = require("../controllers/multerImageUploads");
 const imageRouter = express.Router();
 
 const destinationDirectory = path.join(__dirname, "../public/images");
@@ -22,7 +26,8 @@ const upload = multer({
   storage: storage,
 });
 
-
 imageRouter.post("/upload", upload.single("file"), imagePost);
+imageRouter.get("/all-products", getProducts);
+imageRouter.get("/specific-product/:id", specificProduct);
 
 module.exports = imageRouter;
