@@ -2,7 +2,7 @@ const Users = require("../models/userModel");
 
 const signUp = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const { name, email, phoneNumber, password } = req.body;
 
     /* if (!(name || email || phone || password)) {
       return res.status(400).json({
@@ -29,7 +29,7 @@ const signUp = async (req, res) => {
     const newUser = new Users({
       name,
       email,
-      phone,
+      phoneNumber,
       password,
       role: "user",
     });
@@ -44,4 +44,31 @@ const signUp = async (req, res) => {
   }
 };
 
-module.exports = { signUp };
+const getUsers = async (req, res) => {
+  const result = await Users.find();
+  res.status(200).json({
+    status: "success",
+    message: result,
+  });
+};
+
+const specificUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const result = await Users.find({ email: email });
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    } else {
+      return res.status(404).json({
+        message: "User find successful",
+        result,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { signUp, getUsers, specificUser };
