@@ -7,6 +7,9 @@ const addCartSchema = new Schema({
   name: {
     type: String,
   },
+  productName: {
+    type: String,
+  },
   email: {
     type: String,
   },

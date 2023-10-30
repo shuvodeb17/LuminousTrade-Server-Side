@@ -1,5 +1,5 @@
 const addProducts = require("../models/multerImageModel");
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 const imagePost = async (req, res) => {
   try {
@@ -54,4 +54,27 @@ const specificProduct = async (req, res) => {
   }
 };
 
-module.exports = { imagePost, getProducts, specificProduct };
+const searchProduct = async (req, res) => {
+  try {
+    const search = req.query.search || "";
+    const searchRegExp = new RegExp(".*" + search + ".*", "i");
+    const filter = {
+      isAdmin: { $ne: true },
+      $or: [
+        { name: { $regex: searchRegExp } },
+        { title: { $regex: searchRegExp } },
+        { productName: { $regex: searchRegExp } }
+      ],
+    };
+    const result = await addProducts.find(filter);
+    res.status(200).json({
+      result: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error,
+    });
+  }
+};
+
+module.exports = { imagePost, getProducts, specificProduct, searchProduct };

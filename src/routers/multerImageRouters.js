@@ -5,6 +5,7 @@ const {
   imagePost,
   getProducts,
   specificProduct,
+  searchProduct
 } = require("../controllers/multerImageUploads");
 const imageRouter = express.Router();
 
@@ -29,5 +30,6 @@ const upload = multer({
 imageRouter.post("/upload", upload.single("file"), imagePost);
 imageRouter.get("/all-products", getProducts);
 imageRouter.get("/specific-product/:id", specificProduct);
+imageRouter.get("/search-product", searchProduct);
 
 module.exports = imageRouter;
