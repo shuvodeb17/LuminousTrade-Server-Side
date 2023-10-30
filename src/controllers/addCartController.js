@@ -82,9 +82,6 @@ const createPayment = async (req, res) => {
 const savePaymentInfo = async (req, res) => {
   const { price, email, trsId } = req.body;
   const amount = price * 100;
-  console.log(amount);
-  console.log(price);
-  console.log(email);
   const newPayment = new payments({
     price: price,
     email: email,
