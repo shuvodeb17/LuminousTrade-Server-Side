@@ -96,10 +96,21 @@ const savePaymentInfo = async (req, res) => {
   });
 };
 
+const specificUserPaymentInfo = async (req, res) => {
+  // console.log(req.headers.authorization)
+  let query = {};
+  if (req.query?.email) {
+    query = { email: req.query?.email };
+  }
+  const result = await payments.find(query);
+  res.send(result);
+};
+
 module.exports = {
   addCartProducts,
   specificUserProduct,
   createPayment,
   savePaymentInfo,
   cartDeleteProduct,
+  specificUserPaymentInfo,
 };
