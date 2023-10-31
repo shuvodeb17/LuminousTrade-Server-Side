@@ -10,6 +10,7 @@ const {
 const imageRouter = express.Router();
 
 const destinationDirectory = path.join(__dirname, "../public/images");
+// const destinationDirectory = path.join(__dirname, "../../uploads");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

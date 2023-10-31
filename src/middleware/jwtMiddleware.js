@@ -12,23 +12,29 @@ const jwtCheck = (req, res) => {
 
 const verifyJWT = (req, res, next) => {
   const authorization = req.headers.authorization;
+
   if (!authorization) {
     return res.status(401).json({
       error: true,
       message: "unauthorized access",
     });
   }
+
   const token = authorization.split(" ")[1];
+  
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
     if (error) {
-      res.status(401).json({
+      return res.status(401).json({
         error: true,
         message: "unauthorized access",
       });
     }
+
+    // If verification is successful, set the decoded information in the request object.
     req.decoded = decoded;
     next();
   });
 };
+
 
 module.exports = { jwtCheck, verifyJWT };
